@@ -16,7 +16,7 @@ import java.util.List;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService {
 
         User user = new User();
         user.setEmail(username);
-        user.setName(result.get(0).getPassword());
+        user.setPassword(result.get(0).getPassword());
         for (UserDetailsProjection projection : result){
             user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
         }
